@@ -94,7 +94,6 @@ docker run -p 8000:8000 fastapi-ml
 - [PyCaret Documentation](https://pycaret.gitbook.io/docs/)
 
 ## 💡 Future Enhancements
-- Add a database to store predictions.
 - Implement authentication for API access.
 - Deploy on cloud platforms like AWS/GCP.
 
