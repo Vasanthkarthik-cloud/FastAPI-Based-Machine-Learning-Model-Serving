@@ -47,13 +47,13 @@ class InsuranceInput(BaseModel):
 def predict(data: InsuranceInput):
     input_df = pd.DataFrame([data.model_dump()])
     predictions = predict_model(model, data=input_df)
-    predicted_cost = float(predictions["prediction_label"].iloc[0])  # Fixed typo in "prediction_label"
+    predicted_cost = float(predictions["prediction_label"].iloc[0])
     
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     input_query = """
         INSERT INTO insurance_requests (age, sex, bmi, children, smoker, region, predicted_cost)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)"""  # Fixed typo in "insurance_requests"
+        VALUES (%s, %s, %s, %s, %s, %s, %s)""" 
     values = (
         data.age,
         data.sex,
@@ -68,7 +68,6 @@ def predict(data: InsuranceInput):
     cursor.close()
     conn.close()
     
-    return {"Predicted Insurance Cost": predicted_cost}  # Fixed typo in "Insurance"
-
+    return {"Predicted Insurance Cost": predicted_cost}
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
