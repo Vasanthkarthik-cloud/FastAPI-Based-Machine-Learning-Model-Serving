@@ -14,7 +14,7 @@ This project demonstrates how to deploy a machine learning model using **FastAPI
 📁 fastapi-ml-api
 │── model/
 │   └── my_model.pkl   # Pre-trained ML model
-│── app.py             # FastAPI application
+│── main.py             # FastAPI application
 │── requirements.txt   # Python dependencies
 │── README.md          # Project documentation
 ```
