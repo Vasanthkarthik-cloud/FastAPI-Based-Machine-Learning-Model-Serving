@@ -102,9 +102,6 @@ docker run -p 8000:8000 fastapi-ml
 - Implement authentication for API access.
 - Deploy on cloud platforms like AWS/GCP.
 
-## ✨ Contributors
-- **Your Name** (your_email@example.com)
-
 ---
 ### 🌟 Feel free to ⭐ the repo and contribute! Happy coding! 🚀
 
