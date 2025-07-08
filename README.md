@@ -75,6 +75,11 @@ POST /predict
   "Predicted Insurance Cost": [3500.75]
 }
 ```
+## Strealit Frontend
+![App Screenshot](images/streamlit_frontend.png)
+
+## MySQL Screenshot
+![App Screenshot](images/MySQL_scr.png)
 
 ## 📜 Deployment Guide
 You can deploy the API using **Docker**, **Heroku**, or **AWS Lambda**.

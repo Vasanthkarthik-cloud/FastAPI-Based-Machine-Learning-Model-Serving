@@ -53,9 +53,9 @@ def create_table():
         conn.commit()
         cursor.close()
         conn.close()
-        print("✅ Database table created/verified")
+        print("Database table created")
     except Exception as e:
-        print(f"❌ Database error: {e}")
+        print(f"Database error: {e}")
 
 def test_rabbitmq_connection():
     """Test RabbitMQ connection"""
@@ -73,10 +73,10 @@ def test_rabbitmq_connection():
         channel = connection.channel()
         channel.queue_declare(queue=rabbitmq_config["queue_name"], durable=True)
         connection.close()
-        print("✅ RabbitMQ connection successful")
+        print("RabbitMQ connection successful")
         return True
     except Exception as e:
-        print(f"❌ RabbitMQ connection failed: {e}")
+        print(f"RabbitMQ connection failed: {e}")
         print("Make sure RabbitMQ is running:")
         print("- Docker: docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management")
         print("- Or install locally and start the service")
@@ -105,10 +105,10 @@ def publish_to_rabbitmq(message):
             properties=pika.BasicProperties(delivery_mode=2)
         )
         connection.close()
-        print(f"✅ Message published: {message['request_id']}")
+        print(f"Message published: {message['request_id']}")
         return True
     except Exception as e:
-        print(f"❌ Failed to publish message: {e}")
+        print(f"Failed to publish message: {e}")
         return False
 
 def save_to_database(data, predicted_cost):
@@ -125,17 +125,17 @@ def save_to_database(data, predicted_cost):
         conn.commit()
         cursor.close()
         conn.close()
-        print("✅ Data saved to database")
+        print("Data saved to database")
         return True
     except Exception as e:
-        print(f"❌ Database save failed: {e}")
+        print(f"Database save failed: {e}")
         return False
 
 def process_message(ch, method, properties, body):
     """Process messages from RabbitMQ"""
     try:
         message = json.loads(body)
-        print(f"📨 Processing message: {message['request_id']}")
+        print(f"Processing message: {message['request_id']}")
         
         # Create prediction
         data = InsuranceInput(**message['input_data'])
@@ -151,7 +151,7 @@ def process_message(ch, method, properties, body):
         print(f"✅ Prediction completed: {predicted_cost}")
         
     except Exception as e:
-        print(f"❌ Error processing message: {e}")
+        print(f"Error processing message: {e}")
         ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
 
 def start_consumer():
@@ -172,11 +172,11 @@ def start_consumer():
         channel.basic_qos(prefetch_count=1)
         channel.basic_consume(queue=rabbitmq_config["queue_name"], on_message_callback=process_message)
         
-        print("🔄 Starting RabbitMQ consumer...")
+        print("Starting RabbitMQ consumer...")
         channel.start_consuming()
         
     except Exception as e:
-        print(f"❌ Consumer error: {e}")
+        print(f"Consumer error: {e}")
 
 # Initialize
 create_table()
@@ -186,9 +186,9 @@ rabbitmq_available = test_rabbitmq_connection()
 if rabbitmq_available:
     consumer_thread = threading.Thread(target=start_consumer, daemon=True)
     consumer_thread.start()
-    print("🚀 RabbitMQ consumer started")
+    print("RabbitMQ consumer started")
 else:
-    print("⚠️ RabbitMQ not available - async predictions disabled")
+    print("RabbitMQ not available - async predictions disabled")
 
 class InsuranceInput(BaseModel):
     age: int
