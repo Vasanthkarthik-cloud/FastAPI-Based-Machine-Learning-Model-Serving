@@ -82,7 +82,7 @@ POST /predict
 ![App Screenshot](images/MySQL_scr.png)
 
 ## 📜 Deployment Guide
-You can deploy the API using **Docker**, **Heroku**, or **AWS Lambda**.
+You can deploy the API using **Docker**.
 
 ### 🐳 Run with Docker
 1. Build the Docker Image:
