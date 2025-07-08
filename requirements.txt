@@ -1,0 +1,6 @@
+fastapi
+pandas
+pycaret
+uvicorn
+mysql-connector-python
+pika
